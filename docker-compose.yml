@@ -57,4 +57,23 @@ services:
 ## -------------------------- DATABASE END --------------------------
 
 ## -------------------------- DATA ROUTING --------------------------
+  nifi:
+    image: apache/nifi
+    container_name: nifi
+    restart: always
+    cap_add:
+      - NET_ADMIN
+    ports:
+      - '8080:8080/tcp' # HTTP interface
+      - '8443:8443/tcp' # HTTPS interface
+      - '514:514/tcp' # Syslog
+      - '514:514/udp' # Syslog
+      - '2055:2055/udp' # NetFlow
+    environment:
+      NIFI_WEB_HTTP_PORT: 8080
+    expose:
+      - 8080
+    networks:
+     - CSEC
 
+## ---------------------- DATA ROUTING END -------------------------
