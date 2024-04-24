@@ -1,5 +1,5 @@
 #. .venv/bin/activate
-from flask import Flask, json
+from flask import Flask, json, make_response
 import time
 import smbus
 
@@ -53,10 +53,11 @@ api = Flask(__name__)
 def get_companies():
 	global companies
 	temperature = round(read_temp(), 2)
-	#companies = [{"temp": temperature}]
-	companies = "temp, light\n" + str(temperature) + ", 0"
-	#return json.dumps(companies)
-	return companies
+	companies = "temp, light\n"
+	companies +=  str(temperature) + ", 0"
+	packet = make_response(companies, 200)
+	packet.mimetype = "text/plain"
+	return packet
 
 if __name__ == '__main__':
 	api.run()
