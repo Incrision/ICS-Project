@@ -20,7 +20,7 @@ class PyStreamCallback(StreamCallback):
     def __init__(self):
         pass
     def process(self, inputStream, outputStream):
-        text += IOUtils.toString(inputStream, StandardCharsets.UTF_8)
+        text = IOUtils.toString(inputStream, StandardCharsets.UTF_8)
         outputStream.write(bytearray(text.encode('utf-8')))
 # end class
 flowFile = session.get()
